@@ -231,7 +231,7 @@ mod tests {
     use datafusion::parquet::data_type::AsBytes;
     use hyper::{body, Body, Client, Request, Response, StatusCode};
     use influxdb3_write::persister::PersisterImpl;
-    use influxdb3_write::SegmentDuration;
+    use influxdb3_write::Level0Duration;
     use iox_query::exec::{DedicatedExecutor, Executor, ExecutorConfig};
     use iox_time::{MockProvider, Time};
     use object_store::DynObjectStore;
@@ -277,7 +277,7 @@ mod tests {
                 Arc::clone(&persister),
                 None::<Arc<influxdb3_write::wal::WalImpl>>,
                 Arc::clone(&time_provider),
-                SegmentDuration::new_5m(),
+                Level0Duration::new_5m(),
                 Arc::clone(&exec),
                 10000,
             )
@@ -438,7 +438,7 @@ mod tests {
                 Arc::clone(&persister),
                 None::<Arc<influxdb3_write::wal::WalImpl>>,
                 Arc::clone(&time_provider),
-                SegmentDuration::new_5m(),
+                Level0Duration::new_5m(),
                 Arc::clone(&exec),
                 10000,
             )
@@ -646,7 +646,7 @@ mod tests {
                 Arc::clone(&persister),
                 None::<Arc<influxdb3_write::wal::WalImpl>>,
                 Arc::clone(&time_provider),
-                SegmentDuration::new_5m(),
+                Level0Duration::new_5m(),
                 Arc::clone(&exec),
                 10000,
             )

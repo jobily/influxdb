@@ -2566,6 +2566,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "influxdb3_wal"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "byteorder",
+ "bytes",
+ "crc32fast",
+ "data_types",
+ "futures-util",
+ "hashbrown 0.14.5",
+ "influxdb-line-protocol",
+ "object_store",
+ "observability_deps",
+ "parking_lot",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
 name = "influxdb3_write"
 version = "0.1.0"
 dependencies = [
@@ -2585,6 +2606,7 @@ dependencies = [
  "hex",
  "indexmap 2.2.6",
  "influxdb-line-protocol",
+ "influxdb3_wal",
  "insta",
  "iox_catalog",
  "iox_http",

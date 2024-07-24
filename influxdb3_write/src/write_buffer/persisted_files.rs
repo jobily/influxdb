@@ -2,7 +2,7 @@
 //! When queries come in they will combine whatever chunks exist from `SegmentState` with
 //! the persisted files to get the full set of data to query.
 
-use crate::{ParquetFile, PersistedSegment};
+use crate::{ParquetFile, PersistedSnapshot};
 use parking_lot::RwLock;
 
 #[derive(Debug, Default)]
@@ -13,7 +13,7 @@ pub struct PersistedFiles {
 
 impl PersistedFiles {
     /// Create a new `PersistedFiles` from a list of persisted segments
-    pub fn new_from_persisted_segments(persisted_segments: Vec<PersistedSegment>) -> Self {
+    pub fn new_from_persisted_snapshots(persisted_segments: Vec<PersistedSnapshot>) -> Self {
         let files = persisted_segments.into_iter().fold(
             hashbrown::HashMap::new(),
             |mut files, persisted_segment| {
@@ -48,9 +48,9 @@ impl PersistedFiles {
     }
 
     /// Add all files from a persisted segment
-    pub fn add_persisted_segment_files(&self, persisted_segment: PersistedSegment) {
+    pub fn add_persisted_snapshot_files(&self, persisted_snapshot: PersistedSnapshot) {
         let mut files = self.files.write();
-        persisted_segment
+        persisted_snapshot
             .databases
             .into_iter()
             .for_each(|(db_name, tables)| {

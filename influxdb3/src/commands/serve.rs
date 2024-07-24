@@ -17,7 +17,7 @@ use influxdb3_server::{
 use influxdb3_write::persister::PersisterImpl;
 use influxdb3_write::wal::WalImpl;
 use influxdb3_write::write_buffer::WriteBufferImpl;
-use influxdb3_write::SegmentDuration;
+use influxdb3_write::Level0Duration;
 use iox_query::exec::{DedicatedExecutor, Executor, ExecutorConfig};
 use iox_time::SystemProvider;
 use object_store::DynObjectStore;
@@ -155,7 +155,7 @@ pub struct Config {
         default_value = "1h",
         action
     )]
-    pub segment_duration: SegmentDuration,
+    pub segment_duration: Level0Duration,
 
     // TODO - tune this default:
     /// The size of the query log. Up to this many queries will remain in the log before

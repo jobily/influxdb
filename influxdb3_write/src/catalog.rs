@@ -1,6 +1,5 @@
 //! Implementation of the Catalog that sits entirely in memory.
 
-use crate::SequenceNumber;
 use influxdb_line_protocol::FieldValue;
 use observability_deps::tracing::info;
 use parking_lot::RwLock;
@@ -42,6 +41,22 @@ pub enum Error {
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 pub const TIME_COLUMN_NAME: &str = "time";
+
+/// The sequence number of a batch of WAL operations.
+#[derive(
+    Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
+)]
+pub struct SequenceNumber(u32);
+
+impl SequenceNumber {
+    pub fn new(id: u32) -> Self {
+        Self(id)
+    }
+
+    pub fn next(&self) -> Self {
+        Self(self.0 + 1)
+    }
+}
 
 #[derive(Debug)]
 pub struct Catalog {
